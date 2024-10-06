@@ -16,7 +16,7 @@ class SuperheroesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_superheroes)
 
-        superheroFactory = SuperheroFactory()
+        superheroFactory = SuperheroFactory(this)
         viewModel = superheroFactory.buildViewModel()
 
         val superheroes = viewModel.viewCreated()
