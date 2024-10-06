@@ -3,10 +3,13 @@ package edu.iesam.superheroes.features.superheroes.presentation
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.appcompat.app.AppCompatActivity
 import edu.iesam.superheroes.R
+import edu.iesam.superheroes.app.domain.ErrorApp
 import edu.iesam.superheroes.app.extensions.loadUrl
 import edu.iesam.superheroes.features.superheroes.domain.Superhero
 
@@ -22,15 +25,33 @@ class SuperheroDetailActivity : AppCompatActivity() {
         superheroFactory = SuperheroFactory(this)
         viewModel = superheroFactory.buildSuperheroDetailViewModel()
 
+
         getSuperheroId()?.let { superheroId ->
-            viewModel.viewCreated(superheroId)?.let { superhero ->
-                binData(superhero)
-            }
+            viewModel.viewCreated(superheroId)
         }
+
+        setupObserver()
     }
 
     private fun getSuperheroId(): String? {
         return intent.getStringExtra(KEY_SUPERHERO_ID)
+    }
+
+    private fun setupObserver() {
+        val nameObserver = Observer<SuperheroDetailViewModel.UiState> { uiState ->
+            uiState.superhero?.let {
+                binData(it)
+            }
+            uiState.errorApp?.let {
+                showError(it)
+            }
+            if (uiState.isLoading) {
+                Log.d("dev", "Loading...")
+            } else {
+                //hide loading
+            }
+        }
+        viewModel.uiState.observe(this, nameObserver)
     }
 
     private fun binData(superhero: Superhero) {
@@ -60,6 +81,15 @@ class SuperheroDetailActivity : AppCompatActivity() {
         superheroPWR.text = superhero.principalData.stats.power.toString()
         val superheroCBT = findViewById<TextView>(R.id.superheroCBT)
         superheroCBT.text = superhero.principalData.stats.combat.toString()
+    }
+
+    private fun showError(error: ErrorApp) {
+        when (error) {
+            ErrorApp.DataErrorApp -> TODO()
+            ErrorApp.InternetErrorApp -> TODO()
+            ErrorApp.ServerErrorApp -> TODO()
+            ErrorApp.UnknowErrorApp -> TODO()
+        }
     }
 
     companion object {
