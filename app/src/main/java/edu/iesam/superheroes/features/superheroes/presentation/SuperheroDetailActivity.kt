@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import edu.iesam.superheroes.R
 import edu.iesam.superheroes.app.extensions.loadUrl
 import edu.iesam.superheroes.features.superheroes.domain.Superhero
-import org.w3c.dom.Text
 
 class SuperheroDetailActivity : AppCompatActivity() {
 
@@ -20,7 +19,7 @@ class SuperheroDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_superhero_detail)
 
-        superheroFactory = SuperheroFactory()
+        superheroFactory = SuperheroFactory(this)
         viewModel = superheroFactory.buildSuperheroDetailViewModel()
 
         getSuperheroId()?.let { superheroId ->

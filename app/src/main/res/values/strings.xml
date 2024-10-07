@@ -19,4 +19,5 @@
     <string name="superhero_dur">99</string>
     <string name="superhero_pwr">99</string>
     <string name="superhero_cbt">99</string>
+    <string name="name_file_xml">superheroes</string>
 </resources>
