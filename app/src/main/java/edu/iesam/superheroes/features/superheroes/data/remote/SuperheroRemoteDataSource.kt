@@ -132,4 +132,10 @@ class SuperheroRemoteDataSource {
     fun getSuperheroes(): List<Superhero> {
         return superheroes
     }
+
+    fun getSuperhero(superheroId: String): Superhero? {
+        return getSuperheroes().firstOrNull() { superhero ->
+            superhero.principalData.id == superheroId
+        }
+    }
 }

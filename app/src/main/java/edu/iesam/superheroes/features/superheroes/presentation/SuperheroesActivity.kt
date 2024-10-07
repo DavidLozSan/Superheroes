@@ -28,8 +28,12 @@ class SuperheroesActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        recyclerView.adapter = SuperheroAdapter(superheroes) {
-            //cambiar a vista de superhero detallada
+        recyclerView.adapter = SuperheroAdapter(superheroes) { superheroId ->
+            navigateToSuperheroDetail(superheroId)
         }
+    }
+
+    private fun navigateToSuperheroDetail(superheroId: String) {
+        startActivity(SuperheroDetailActivity.getIntent(this, superheroId))
     }
 }

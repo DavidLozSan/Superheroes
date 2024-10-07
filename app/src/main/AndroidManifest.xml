@@ -16,6 +16,9 @@
         android:theme="@style/Theme.Superheroes"
         tools:targetApi="31">
         <activity
+            android:name=".features.superheroes.presentation.SuperheroDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".features.superheroes.presentation.SuperheroesActivity"
             android:exported="true">
             <intent-filter>

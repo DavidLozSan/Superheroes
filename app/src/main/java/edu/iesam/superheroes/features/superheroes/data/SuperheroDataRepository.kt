@@ -11,4 +11,8 @@ class SuperheroDataRepository(
     override fun getSuperheroes(): List<Superhero> {
         return remote.getSuperheroes()
     }
+
+    override fun getSuperhero(superheroId: String): Superhero? {
+        return remote.getSuperhero(superheroId)
+    }
 }
